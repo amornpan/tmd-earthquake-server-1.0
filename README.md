@@ -1,54 +1,54 @@
 # 🌍 TMD Earthquake MCP Server v1.0
 
-Model Context Protocol (MCP) server สำหรับเข้าถึงข้อมูลแผ่นดินไหวจากกรมอุตุนิยมวิทยา (TMD) แบบ real-time
+Model Context Protocol (MCP) server for real-time earthquake data access from Thai Meteorological Department (TMD)
 
-## 📋 สารบัญ
-- [คุณสมบัติ](#-คุณสมบัติ)
-- [ความต้องการของระบบ](#-ความต้องการของระบบ)
-- [การติดตั้ง](#-การติดตั้ง)
-- [การตั้งค่า Claude Desktop](#-การตั้งค่า-claude-desktop)
-- [วิธีใช้งาน](#-วิธีใช้งาน)
-- [ตัวอย่างคำสั่ง](#-ตัวอย่างคำสั่ง)
+## 📋 Table of Contents
+- [Features](#-features)
+- [System Requirements](#-system-requirements)
+- [Installation](#-installation)
+- [Claude Desktop Configuration](#-claude-desktop-configuration)
+- [Usage](#-usage)
+- [Example Commands](#-example-commands)
 - [API Reference](#-api-reference)
-- [การแก้ปัญหา](#-การแก้ปัญหา)
+- [Troubleshooting](#-troubleshooting)
 
-## ✨ คุณสมบัติ
+## ✨ Features
 
-### 🛠️ Tools (เครื่องมือ)
-Server นี้มี tools สำหรับค้นหาและวิเคราะห์ข้อมูลแผ่นดินไหว:
+### 🛠️ Tools
+This server provides tools for searching and analyzing earthquake data:
 
-| Tool | คำอธิบาย | Parameters |
-|------|----------|------------|
-| `get_earthquakes` | ดึงข้อมูลแผ่นดินไหวล่าสุด | `limit` (จำนวนรายการ, default: 10) |
-| `get_earthquakes_by_magnitude` | กรองแผ่นดินไหวตามขนาด | `min_magnitude` (ขนาดขั้นต่ำ, default: 3.0) |
-| `get_earthquakes_by_location` | ค้นหาตามสถานที่/ประเทศ | `location` (ชื่อสถานที่ภาษาไทย/อังกฤษ) |
-| `get_earthquake_summary` | สรุปสถิติแผ่นดินไหว | - |
-| `get_large_earthquakes` | หาแผ่นดินไหวขนาดใหญ่ที่อันตราย | `magnitude_threshold` (default: 5.0) |
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `get_earthquakes` | Fetch recent earthquake data | `limit` (number of items, default: 10) |
+| `get_earthquakes_by_magnitude` | Filter earthquakes by magnitude | `min_magnitude` (minimum magnitude, default: 3.0) |
+| `get_earthquakes_by_location` | Search by location/country | `location` (location name in Thai/English) |
+| `get_earthquake_summary` | Get earthquake statistics summary | - |
+| `get_large_earthquakes` | Find large dangerous earthquakes | `magnitude_threshold` (default: 5.0) |
 
-### 📚 Resources (ทรัพยากร)
-| Resource | คำอธิบาย |
-|----------|----------|
-| `earthquake://latest` | ข้อมูลแผ่นดินไหวล่าสุด 1 รายการ |
-| `earthquake://today` | แผ่นดินไหวทั้งหมดในวันนี้ (เวลาไทย) |
+### 📚 Resources
+| Resource | Description |
+|----------|-------------|
+| `earthquake://latest` | Latest earthquake data (1 item) |
+| `earthquake://today` | All earthquakes today (Thai timezone) |
 
-### 📊 ข้อมูลที่ได้รับ
-- 📅 วันที่และเวลา (ทั้ง UTC และเวลาไทย)
-- 📍 พิกัดที่ตั้ง (Latitude, Longitude)
-- 🎯 ความลึกของจุดศูนย์กลาง (กิโลเมตร)
-- 📊 ขนาดแผ่นดินไหว (Magnitude)
-- 🌏 สถานที่เกิดเหตุ (ภาษาไทย)
-- 💬 รายละเอียดเพิ่มเติม
+### 📊 Data Provided
+- 📅 Date and time (both UTC and Thai time)
+- 📍 Location coordinates (Latitude, Longitude)
+- 🎯 Epicenter depth (kilometers)
+- 📊 Earthquake magnitude
+- 🌏 Event location (in Thai)
+- 💬 Additional details
 
-## 💻 ความต้องการของระบบ
+## 💻 System Requirements
 
-- **Python** 3.10 หรือสูงกว่า
+- **Python** 3.10 or higher
 - **pip** (Python package manager)
-- **Internet** สำหรับเชื่อมต่อ TMD API
-- **Claude Desktop** (สำหรับใช้งานกับ Claude)
+- **Internet** connection for TMD API access
+- **Claude Desktop** (for Claude integration)
 
-## 🚀 การติดตั้ง
+## 🚀 Installation
 
-### วิธีที่ 1: ใช้ Script อัตโนมัติ (แนะนำ)
+### Method 1: Automatic Script (Recommended)
 
 #### Windows:
 ```batch
@@ -63,16 +63,16 @@ chmod +x install.sh
 ./install.sh
 ```
 
-### วิธีที่ 2: ติดตั้งด้วยตนเอง
+### Method 2: Manual Installation
 
-1. **เปิด Command Prompt/Terminal**
+1. **Open Command Prompt/Terminal**
 
-2. **ไปยัง directory ของ server:**
+2. **Navigate to server directory:**
 ```bash
 cd C:\Users\Asus\2025-Aug-APT_LLMs-for-Telecom\tmd-earthquake-server-1.0
 ```
 
-3. **สร้าง virtual environment (optional แต่แนะนำ):**
+3. **Create virtual environment (optional but recommended):**
 ```bash
 python -m venv venv
 
@@ -83,27 +83,27 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-4. **ติดตั้ง dependencies:**
+4. **Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-หรือติดตั้งแยก:
+Or install separately:
 ```bash
 pip install "mcp[cli]" httpx
 ```
 
-## ⚙️ การตั้งค่า Claude Desktop
+## ⚙️ Claude Desktop Configuration
 
-### 1. หาไฟล์ Configuration
+### 1. Locate Configuration File
 
 **Windows:**
 ```
 %APPDATA%\Claude\claude_desktop_config.json
 ```
-หรือ
+or
 ```
-C:\Users\[ชื่อผู้ใช้]\AppData\Roaming\Claude\claude_desktop_config.json
+C:\Users\[Username]\AppData\Roaming\Claude\claude_desktop_config.json
 ```
 
 **macOS:**
@@ -111,9 +111,9 @@ C:\Users\[ชื่อผู้ใช้]\AppData\Roaming\Claude\claude_desktop_
 ~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
-### 2. เพิ่ม Server Configuration
+### 2. Add Server Configuration
 
-เปิดไฟล์ `claude_desktop_config.json` ด้วย text editor แล้วเพิ่ม:
+Open `claude_desktop_config.json` with a text editor and add:
 
 ```json
 {
@@ -126,41 +126,33 @@ C:\Users\[ชื่อผู้ใช้]\AppData\Roaming\Claude\claude_desktop_
 }
 ```
 
-**หมายเหตุ:** 
-- ใช้ `\\` (double backslash) สำหรับ Windows paths
-- ถ้ามี server อื่นอยู่แล้ว ให้เพิ่มหลัง server ที่มีอยู่ (อย่าลืม comma)
+**Note:** 
+- Use `\\` (double backslash) for Windows paths
+- If other servers exist, add after existing servers (don't forget the comma)
 
 ### 3. Restart Claude Desktop
 
-1. ปิด Claude Desktop ทั้งหมด (รวมถึงใน system tray)
-2. เปิด Claude Desktop ใหม่
-3. ตรวจสอบว่ามีไอคอน 🔌 แสดงว่า MCP server เชื่อมต่อแล้ว
+1. Close Claude Desktop completely (including system tray)
+2. Reopen Claude Desktop
+3. Check for 🔌 icon indicating MCP server connection
 
-## 📖 วิธีใช้งาน
+## 📖 Usage
 
-### ทดสอบ Server โดยตรง
+### Direct Server Testing
 
 ```bash
-# ทดสอบว่า server ทำงานได้
+# Test if server works
 python server.py
 
-# ใช้ MCP Inspector (ต้องติดตั้ง Node.js)
+# Use MCP Inspector (requires Node.js)
 npx @modelcontextprotocol/inspector python server.py
 ```
 
-### ใช้งานใน Claude Desktop
+### Using in Claude Desktop
 
-เมื่อตั้งค่าเสร็จแล้ว สามารถใช้คำสั่งภาษาธรรมชาติกับ Claude:
+Once configured, use natural language commands with Claude:
 
-## 💬 ตัวอย่างคำสั่ง
-
-### ภาษาไทย
-- "แสดงข้อมูลแผ่นดินไหวล่าสุด"
-- "หาแผ่นดินไหวที่มีขนาดมากกว่า 4 ริกเตอร์"
-- "มีแผ่นดินไหวที่ประเทศเมียนมาบ้างไหม"
-- "สรุปสถิติแผ่นดินไหวให้หน่อย"
-- "แผ่นดินไหววันนี้มีกี่ครั้ง"
-- "หาแผ่นดินไหวขนาดใหญ่ที่อาจเป็นอันตราย"
+## 💬 Example Commands
 
 ### English
 - "Show me recent earthquakes"
@@ -170,94 +162,102 @@ npx @modelcontextprotocol/inspector python server.py
 - "Show today's earthquakes"
 - "Find large earthquakes that might be dangerous"
 
+### Thai
+- "แสดงข้อมูลแผ่นดินไหวล่าสุด"
+- "หาแผ่นดินไหวที่มีขนาดมากกว่า 4 ริกเตอร์"
+- "มีแผ่นดินไหวที่ประเทศเมียนมาบ้างไหม"
+- "สรุปสถิติแผ่นดินไหวให้หน่อย"
+- "แผ่นดินไหววันนี้มีกี่ครั้ง"
+- "หาแผ่นดินไหวขนาดใหญ่ที่อาจเป็นอันตราย"
+
 ## 📊 API Reference
 
 ### Tools
 
 #### `get_earthquakes(limit: int = 10)`
-ดึงข้อมูลแผ่นดินไหวล่าสุด
-- **limit**: จำนวนรายการสูงสุดที่ต้องการ (default: 10)
-- **Returns**: รายการแผ่นดินไหวพร้อมรายละเอียด
+Fetch recent earthquake data
+- **limit**: Maximum number of items to retrieve (default: 10)
+- **Returns**: List of earthquakes with details
 
 #### `get_earthquakes_by_magnitude(min_magnitude: float = 3.0)`
-กรองแผ่นดินไหวตามขนาด magnitude
-- **min_magnitude**: ขนาด magnitude ขั้นต่ำ (default: 3.0)
-- **Returns**: แผ่นดินไหวที่มีขนาดตามที่กำหนด
+Filter earthquakes by magnitude
+- **min_magnitude**: Minimum magnitude threshold (default: 3.0)
+- **Returns**: Earthquakes matching the magnitude criteria
 
 #### `get_earthquakes_by_location(location: str)`
-ค้นหาแผ่นดินไหวตามสถานที่
-- **location**: ชื่อสถานที่/ประเทศ (ภาษาไทยหรืออังกฤษ)
-- **Returns**: แผ่นดินไหวในพื้นที่ที่ระบุ
+Search earthquakes by location
+- **location**: Location/country name (Thai or English)
+- **Returns**: Earthquakes in specified area
 
 #### `get_earthquake_summary()`
-สรุปสถิติแผ่นดินไหว
-- **Returns**: สถิติรวม, ขนาดเฉลี่ย, การกระจายตามพื้นที่
+Get earthquake statistics summary
+- **Returns**: Total statistics, average magnitude, distribution by area
 
 #### `get_large_earthquakes(magnitude_threshold: float = 5.0)`
-หาแผ่นดินไหวขนาดใหญ่
-- **magnitude_threshold**: เกณฑ์ขนาดแผ่นดินไหว (default: 5.0)
-- **Returns**: แผ่นดินไหวที่มีขนาดเกินเกณฑ์
+Find large earthquakes
+- **magnitude_threshold**: Magnitude threshold (default: 5.0)
+- **Returns**: Earthquakes exceeding the threshold
 
 ### Resources
 
 #### `earthquake://latest`
-- **Returns**: ข้อมูลแผ่นดินไหวล่าสุด 1 รายการ
+- **Returns**: Latest earthquake data (1 item)
 
 #### `earthquake://today`
-- **Returns**: แผ่นดินไหวทั้งหมดในวันนี้ (เวลาไทย)
+- **Returns**: All earthquakes today (Thai timezone)
 
-## 🔧 การแก้ปัญหา
+## 🔧 Troubleshooting
 
-### Server ไม่ปรากฏใน Claude Desktop
+### Server Not Appearing in Claude Desktop
 
-1. **ตรวจสอบ Python:**
+1. **Check Python:**
 ```bash
 python --version
-# ต้องเป็น Python 3.10 หรือสูงกว่า
+# Must be Python 3.10 or higher
 ```
 
-2. **ตรวจสอบ dependencies:**
+2. **Check dependencies:**
 ```bash
 pip list | findstr mcp
-# ต้องมี mcp package
+# Must have mcp package
 ```
 
-3. **ดู logs:**
+3. **View logs:**
 ```bash
 # Windows
 type %APPDATA%\Claude\logs\mcp*.log
 
-# หรือเปิดด้วย notepad
+# Or open with notepad
 notepad %APPDATA%\Claude\logs\mcp-server-tmd-earthquake.log
 ```
 
-4. **ทดสอบ server โดยตรง:**
+4. **Test server directly:**
 ```bash
 cd C:\Users\Asus\2025-Aug-APT_LLMs-for-Telecom\tmd-earthquake-server-1.0
 python server.py
 ```
 
-### Error Messages ที่พบบ่อย
+### Common Error Messages
 
-| Error | สาเหตุ | วิธีแก้ |
-|-------|--------|---------|
-| `ModuleNotFoundError: No module named 'mcp'` | ยังไม่ได้ติดตั้ง MCP | รัน `pip install "mcp[cli]"` |
-| `ModuleNotFoundError: No module named 'httpx'` | ยังไม่ได้ติดตั้ง httpx | รัน `pip install httpx` |
-| `Connection timeout` | ไม่สามารถเชื่อมต่อ TMD API | ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต |
-| `Server not responding` | Path ใน config ไม่ถูกต้อง | ตรวจสอบ path ใน claude_desktop_config.json |
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `ModuleNotFoundError: No module named 'mcp'` | MCP not installed | Run `pip install "mcp[cli]"` |
+| `ModuleNotFoundError: No module named 'httpx'` | httpx not installed | Run `pip install httpx` |
+| `Connection timeout` | Cannot connect to TMD API | Check internet connection |
+| `Server not responding` | Incorrect path in config | Check path in claude_desktop_config.json |
 
-### วิธีตรวจสอบว่า Server ทำงาน
+### How to Verify Server is Working
 
-1. ใน Claude Desktop ต้องมีไอคอน 🔌 หรือ ⚡
-2. พิมพ์ "Show MCP tools" ใน Claude
-3. ต้องเห็น tools ของ tmd-earthquake server
+1. Claude Desktop should show 🔌 or ⚡ icon
+2. Type "Show MCP tools" in Claude
+3. Should see tmd-earthquake server tools
 
-## 📊 แหล่งข้อมูล
+## 📊 Data Source
 
-- **API Provider**: กรมอุตุนิยมวิทยา (Thai Meteorological Department)
+- **API Provider**: Thai Meteorological Department (TMD)
 - **API Endpoint**: https://data.tmd.go.th/api/DailySeismicEvent/v1/
 - **Update Frequency**: Real-time
-- **Coverage**: ภูมิภาคและทั่วโลก
+- **Coverage**: Regional and global
 
 ## 📄 License
 
@@ -265,17 +265,17 @@ This server is for educational and informational purposes. The earthquake data i
 
 ## 🤝 Contributing
 
-หากพบปัญหาหรือต้องการเพิ่ม features สามารถ:
-1. สร้าง Issue
+If you find issues or want to add features:
+1. Create an Issue
 2. Submit Pull Request
-3. ติดต่อผู้พัฒนา
+3. Contact the developer
 
 ## 📞 Support
 
-หากต้องการความช่วยเหลือ:
-- ตรวจสอบ [การแก้ปัญหา](#-การแก้ปัญหา) ก่อน
-- ดู logs ใน `%APPDATA%\Claude\logs\`
-- ทดสอบ server โดยตรงด้วย `python server.py`
+If you need help:
+- Check [Troubleshooting](#-troubleshooting) first
+- Review logs in `%APPDATA%\Claude\logs\`
+- Test server directly with `python server.py`
 
 ---
 
