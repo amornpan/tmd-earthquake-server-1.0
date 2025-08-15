@@ -1,0 +1,16 @@
+[project]
+name = "tmd-earthquake-server"
+version = "1.0.0"
+description = "MCP server for accessing Thai Meteorological Department earthquake data"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]",
+    "httpx"
+]
+
+[project.scripts]
+tmd-earthquake-server = "server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
